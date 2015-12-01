@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Example/Example.iml" filepath="$PROJECT_DIR$/Example/Example.iml" />
       <module fileurl="file://$PROJECT_DIR$/MultiImageSelector.iml" filepath="$PROJECT_DIR$/MultiImageSelector.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />
     </modules>
   </component>
 </project>
