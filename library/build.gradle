@@ -1,4 +1,14 @@
 apply plugin: 'com.android.library'
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.2'
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:3.1.1"
+    }
+}
+
 
 android {
     compileSdkVersion 22
@@ -27,3 +37,5 @@ dependencies {
     compile 'com.commit451:PhotoView:1.2.4'
     compile 'com.isseiaoki:simplecropview:1.0.13'
 }
+// this script was used to upload files to bintray.
+apply from: 'https://raw.githubusercontent.com/msdx/gradle-publish/master/bintray.gradle'
