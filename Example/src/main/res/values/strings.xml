@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">MultiImageSelector</string>
+    <string name="select_picture">Select picture</string>
+    <string name="max_select_num">Maximum number of options</string>
+    <string name="select_mode">Selection mode</string>
+    <string name="single">Single</string>
+    <string name="multiple">Multiple</string>
+    <string name="show_camera">Show Camera</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <string name="enable_preview">Enable Preview</string>
+    <string name="enable_crop">Enable Crop Image</string>
+    <string name="enable">Enable</string>
+    <string name="disable">Disable</string>
+</resources>

@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Library</string>
+    <string name="picture">Images</string>
+    <string name="all_image">All Images</string>
+    <string name="take_picture">Take Photo</string>
+    <string name="preview">Preview</string>
+    <string name="preview_num">Preview(%1$s)</string>
+    <string name="choose">Select</string>
+    <string name="done">Done</string>
+    <string name="use">OK</string>
+    <string name="num_postfix">%1$s</string>
+    <string name="done_num">Done(%1$s/%2$s)</string>
+    <string name="message_max_num">Up to %1$s photos can be selected</string>
+    <string name="save_ing">Saving picture…</string>
+</resources>

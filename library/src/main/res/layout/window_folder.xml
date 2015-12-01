@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:gravity="bottom"
+    android:orientation="vertical">
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/black_layout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_weight="1"></LinearLayout>-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/folder_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:background="@color/white"
+        android:scrollbars="none" />
+</LinearLayout>

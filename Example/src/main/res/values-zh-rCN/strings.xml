@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="max_select_num">可选择图片数量</string>
+    <string name="select_picture">选择图片</string>
+    <string name="select_mode">选择模式</string>
+    <string name="single">单选</string>
+    <string name="multiple">多选</string>
+    <string name="show_camera">显示拍照选项</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+    <string name="enable_preview">打开预览选项</string>
+    <string name="enable_crop">打开剪切选项</string>
+    <string name="enable">打开</string>
+    <string name="disable">关闭</string>
+</resources>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/max_select_num"
+        android:textColor="@color/white"
+        android:textSize="@dimen/middle_text_size" />
+
+    <include layout="@layout/layout_number" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select_mode"
+        android:textColor="@color/white"
+        android:textSize="@dimen/middle_text_size" />
+
+    <RadioGroup
+        android:id="@+id/select_mode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checkedButton="@+id/mode_multiple"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/margin_text"
+        android:paddingTop="@dimen/margin_text">
+
+        <RadioButton
+            android:id="@+id/mode_multiple"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/multiple" />
+
+        <RadioButton
+            android:id="@+id/mode_single"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_text"
+            android:layout_weight="1.5"
+            android:text="@string/single" />
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/show_camera"
+        android:textColor="@color/white"
+        android:textSize="@dimen/middle_text_size" />
+
+    <RadioGroup
+        android:id="@+id/show_camera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checkedButton="@+id/camera_yes"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/margin_text"
+        android:paddingTop="@dimen/margin_text">
+
+        <RadioButton
+            android:id="@+id/camera_yes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/yes" />
+
+        <RadioButton
+            android:id="@+id/camera_no"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_text"
+            android:layout_weight="1.5"
+            android:text="@string/no" />
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/enable_preview"
+        android:textColor="@color/white"
+        android:textSize="@dimen/middle_text_size" />
+
+    <RadioGroup
+        android:id="@+id/enable_preview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checkedButton="@+id/preview_enable"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/margin_text"
+        android:paddingTop="@dimen/margin_text">
+
+        <RadioButton
+            android:id="@+id/preview_enable"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/enable" />
+
+        <RadioButton
+            android:id="@+id/preview_disable"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_text"
+            android:layout_weight="1.5"
+            android:text="@string/disable" />
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/enable_crop"
+        android:textColor="@color/white"
+        android:textSize="@dimen/middle_text_size" />
+
+    <RadioGroup
+        android:id="@+id/enable_crop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checkedButton="@+id/crop_disable"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/margin_text"
+        android:paddingTop="@dimen/margin_text">
+
+        <RadioButton
+            android:id="@+id/crop_enable"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:enabled="false"
+            android:text="@string/enable" />
+
+        <RadioButton
+            android:id="@+id/crop_disable"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_text"
+            android:layout_weight="1.5"
+            android:text="@string/disable" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/select_picture"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bar_height"
+        android:layout_marginTop="@dimen/margin_layout"
+        android:background="@drawable/btn_round_green_enable"
+        android:text="@string/select_picture"
+        android:textSize="@dimen/middle_text_size" />
+</LinearLayout>

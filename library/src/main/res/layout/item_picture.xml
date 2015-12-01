@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.yongchun.library.widget.SquareRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/picture"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <ImageView
+        android:id="@+id/check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/checkbox_selector"
+        android:layout_alignParentRight="true"
+        android:padding="@dimen/margin_text" />
+</com.yongchun.library.widget.SquareRelativeLayout>
