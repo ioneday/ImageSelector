@@ -16,7 +16,11 @@ or
 
 ```xml
 dependencies {
-    compile 'com.yongchun:com.yongchun.ImageSelector:1.1.0'
+    compile 'com.android.support:recyclerview-v7:22.2.1'
+    compile 'com.github.bumptech.glide:glide:3.6.1'
+    compile 'com.commit451:PhotoView:1.2.4'
+    compile 'com.isseiaoki:simplecropview:1.0.13'
+    compile 'com.yongchun:com.yongchun.imageselector:1.1.0'
 }
 ```
 
