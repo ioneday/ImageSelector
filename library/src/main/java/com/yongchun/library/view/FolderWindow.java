@@ -38,7 +38,6 @@ public class FolderWindow extends PopupWindow {
         this.setContentView(window);
         this.setWidth(ScreenUtils.getScreenWidth(context));
         this.setHeight(ScreenUtils.getScreenHeight(context) - ScreenUtils.dip2px(context, 96));
-        setPopupWindowTouchModal(this, false);
         this.setAnimationStyle(R.style.WindowStyle);
         this.setFocusable(true);
         this.setOutsideTouchable(true);
@@ -47,6 +46,7 @@ public class FolderWindow extends PopupWindow {
 
         initView();
         registerListener();
+        setPopupWindowTouchModal(this, false);
     }
 
     public void initView() {
