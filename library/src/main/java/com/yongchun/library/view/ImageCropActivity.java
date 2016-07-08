@@ -82,6 +82,7 @@ public class ImageCropActivity extends AppCompatActivity {
             BitmapFactory.Options option = new BitmapFactory.Options();
             option.inSampleSize = sampleSize;
             Bitmap sizeBitmap = BitmapFactory.decodeStream(is, null, option);
+            if(sizeBitmap==null)return;
             Matrix matrix = getRotateMatrix(sizeBitmap, exifRotation % 360);
             Bitmap rotated = Bitmap.createBitmap(sizeBitmap, 0, 0, sizeBitmap.getWidth(), sizeBitmap.getHeight(), matrix, true);
             cropImageView.setImageBitmap(rotated);

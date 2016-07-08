@@ -15,9 +15,11 @@ import com.yongchun.library.model.LocalMedia;
 import com.yongchun.library.model.LocalMediaFolder;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -48,7 +50,7 @@ public class LocalMediaLoader {
         this.activity = activity;
         this.type = type;
     }
-
+    HashSet<String> mDirPaths = new HashSet<String>();
     public void loadAllImage(final LocalMediaLoadListener imageLoadListener) {
         activity.getSupportLoaderManager().initLoader(type, null, new LoaderManager.LoaderCallbacks<Cursor>() {
             @Override
@@ -74,42 +76,64 @@ public class LocalMediaLoader {
                 LocalMediaFolder allImageFolder = new LocalMediaFolder();
                 List<LocalMedia> allImages = new ArrayList<LocalMedia>();
 
-                if (data != null) {
-                    int count = data.getCount();
-                    if (count > 0) {
-                        data.moveToFirst();
-                        do {
-                            String path = data.getString(data.getColumnIndexOrThrow(IMAGE_PROJECTION[0]));
-                            // 如原图路径不存在或者路径存在但文件不存在,就结束当前循环
-                            if (TextUtils.isEmpty(path) || !new File(path).exists()) {
-                                continue;
-                            }
-                            String name = data.getString(data.getColumnIndexOrThrow(IMAGE_PROJECTION[1]));
-                            long dateTime = data.getLong(data.getColumnIndexOrThrow(IMAGE_PROJECTION[2]));
-                            int duration = (type == TYPE_VIDEO ? data.getInt(data.getColumnIndexOrThrow(VIDEO_PROJECTION[4])) : 0);
+                while(data != null && data.moveToNext()){
+                    // 获取图片的路径
+                    String path = data.getString(data
+                            .getColumnIndex(MediaStore.Images.Media.DATA));
+                    File file = new File(path);
+                    if (!file.exists())
+                        continue;
+                    // 获取该图片的目录路径名
+                    File parentFile = file.getParentFile();
+                    if (parentFile == null || !parentFile.exists())
+                        continue;
 
-                            LocalMedia image = new LocalMedia(path, dateTime, duration);
+                    String dirPath = parentFile.getAbsolutePath();
+                    // 利用一个HashSet防止多次扫描同一个文件夹
+                    if (mDirPaths.contains(dirPath))
+                    {
+                        continue;
+                    } else
+                    {
+                        mDirPaths.add(dirPath);
+                    }
 
-                            LocalMediaFolder folder = getImageFolder(path,imageFolders);
-                            Log.i("FolderName",folder.getName());
+                    if (parentFile.list() == null)
+                        continue;
+                    LocalMediaFolder localMediaFolder = getImageFolder(path,imageFolders);
 
-                            folder.getImages().add(image);
-                            folder.setImageNum(folder.getImageNum() + 1);
-
-
-                            allImages.add(image);
-                            allImageFolder.setImageNum(allImageFolder.getImageNum()+1);
-                        } while (data.moveToNext());
-
-                        allImageFolder.setFirstImagePath(allImages.get(0).getPath());
-                        allImageFolder.setName(activity.getString(R.string.all_image));
-                        allImageFolder.setImages(allImages);
-
-                        imageFolders.add(allImageFolder);
-                        sortFolder(imageFolders);
-                        imageLoadListener.loadComplete(imageFolders);
+                    File[] files = parentFile.listFiles(new FilenameFilter() {
+                        @Override
+                        public boolean accept(File dir, String filename) {
+                            if (filename.endsWith(".jpg")
+                                    || filename.endsWith(".png")
+                                    || filename.endsWith(".jpeg"))
+                                return true;
+                            return false;
+                        }
+                    });
+                    ArrayList<LocalMedia> images = new ArrayList<>();
+                    for (int i = 0 ; i < files.length ; i++){
+                        File f = files[i];
+                        LocalMedia localMedia = new LocalMedia(f.getAbsolutePath());
+                        allImages.add(localMedia);
+                        images.add(localMedia);
+                    }
+                    if(images.size()>0){
+                        localMediaFolder.setImages(images);
+                        localMediaFolder.setImageNum(localMediaFolder.getImages().size());
+                        imageFolders.add(localMediaFolder);
                     }
                 }
+
+                allImageFolder.setImages(allImages);
+                allImageFolder.setImageNum(allImageFolder.getImages().size());
+                allImageFolder.setFirstImagePath(allImages.get(0).getPath());
+                allImageFolder.setName(activity.getString(com.yongchun.library.R.string.all_image));
+                imageFolders.add(allImageFolder);
+                sortFolder(imageFolders);
+                imageLoadListener.loadComplete(imageFolders);
+                if(data!=null) data.close();
             }
 
             @Override
@@ -146,7 +170,6 @@ public class LocalMediaLoader {
         newFolder.setName(folderFile.getName());
         newFolder.setPath(folderFile.getAbsolutePath());
         newFolder.setFirstImagePath(path);
-        imageFolders.add(newFolder);
         return newFolder;
     }
 
