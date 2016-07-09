@@ -38,7 +38,6 @@ public class ImagePreviewActivity extends AppCompatActivity {
     public static final String OUTPUT_ISDONE = "isDone";
 
     private LinearLayout barLayout;
-    private RelativeLayout selectBarLayout;
     private Toolbar toolbar;
     private TextView doneText;
     private CheckBox checkboxSelect;
@@ -79,7 +78,6 @@ public class ImagePreviewActivity extends AppCompatActivity {
         position = getIntent().getIntExtra(EXTRA_POSITION, 1);
 
         barLayout = (LinearLayout) findViewById(R.id.bar_layout);
-        selectBarLayout = (RelativeLayout) findViewById(R.id.select_bar_layout);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle((position + 1) + "/" + images.size());
@@ -206,7 +204,6 @@ public class ImagePreviewActivity extends AppCompatActivity {
     public void switchBarVisibility() {
         barLayout.setVisibility(isShowBar ? View.GONE : View.VISIBLE);
         toolbar.setVisibility(isShowBar ? View.GONE : View.VISIBLE);
-        selectBarLayout.setVisibility(isShowBar ? View.GONE : View.VISIBLE);
         if (isShowBar) {
             hideStatusBar();
         } else {
