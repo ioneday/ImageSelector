@@ -12,4 +12,6 @@
     <string name="num_postfix">%1$s张</string>
     <string name="message_max_num">你最多可以选择%1$s张图片</string>
     <string name="save_ing">保存图片中…</string>
+    <string name="authorization_failed">授权失败</string>
+    <string name="app_name"></string>
 </resources>

@@ -1,10 +1,15 @@
 package com.yongchun.library.view;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yongchun.library.R;
 import com.yongchun.library.adapter.ImageFolderAdapter;
@@ -33,6 +39,8 @@ import java.util.List;
 public class ImageSelectorActivity extends AppCompatActivity {
     public final static int REQUEST_IMAGE = 66;
     public final static int REQUEST_CAMERA = 67;
+    public final static int REQUEST_STORAGE = 68;
+
 
     public final static String BUNDLE_CAMERA_PATH = "CameraPath";
 
@@ -100,14 +108,8 @@ public class ImageSelectorActivity extends AppCompatActivity {
         }
         initView();
         registerListener();
-        new LocalMediaLoader(this, LocalMediaLoader.TYPE_IMAGE).loadAllImage(new LocalMediaLoader.LocalMediaLoadListener() {
 
-            @Override
-            public void loadComplete(List<LocalMediaFolder> folders) {
-                folderWindow.bindFolder(folders);
-                imageAdapter.bindImages(folders.get(0).getImages());
-            }
-        });
+        checkStorageAuth();
     }
 
     public void initView() {
@@ -208,6 +210,29 @@ public class ImageSelectorActivity extends AppCompatActivity {
     }
 
 
+    private void checkStorageAuth() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]
+                    {Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_STORAGE);
+        } else {
+            loadMedia();
+        }
+    }
+
+    private void loadMedia() {
+        new LocalMediaLoader(this, LocalMediaLoader.TYPE_IMAGE).loadAllImage(new LocalMediaLoader.LocalMediaLoadListener() {
+
+            @Override
+            public void loadComplete(List<LocalMediaFolder> folders) {
+                folderWindow.bindFolder(folders);
+                imageAdapter.bindImages(folders.get(0).getImages());
+            }
+        });
+    }
+
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
@@ -237,6 +262,20 @@ public class ImageSelectorActivity extends AppCompatActivity {
             }
         }
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions
+            , @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_STORAGE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                loadMedia();
+            } else {
+                Toast.makeText(this, getString(R.string.authorization_failed), Toast.LENGTH_SHORT);
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
