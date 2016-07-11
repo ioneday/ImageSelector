@@ -97,6 +97,20 @@ public class ImagePreviewActivity extends AppCompatActivity {
         viewPager.setCurrentItem(position);
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+                Intent intent = new Intent();
+                intent.putExtra(OUTPUT_LIST, (ArrayList) selectImages);
+                intent.putExtra(OUTPUT_ISDONE, false);
+                setResult(RESULT_OK, intent);
+                finish();
+                break;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
     public void registerListener() {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
