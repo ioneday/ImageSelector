@@ -1,1 +1,4 @@
 /build
+/library.iml
+/src/androidTest/
+/src/test/
