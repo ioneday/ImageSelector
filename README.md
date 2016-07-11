@@ -24,19 +24,7 @@ dependencies {
 }
 ```
 
-2) Declare permission in your AndroidManifest.xml
-
-```xml
-<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-```
-```java
-<activity android:name="com.yongchun.library.view.ImageSelectorActivity"/>
-<activity android:name="com.yongchun.library.view.ImagePreviewActivity"/>
-<activity android:name="com.yongchun.library.view.ImageCropActivity"/>
-```
-
-3) Call ImageSelectorActivity in your code
+2) Call ImageSelectorActivity in your code
 
 ```java
 ImageSelectorActivity.start(MainActivity.this, maxSelectNum, mode, isShow,isPreview,isCrop);
