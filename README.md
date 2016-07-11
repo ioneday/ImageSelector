@@ -42,7 +42,7 @@ public static void start(Activity activity, int maxSelectNum, int mode, boolean 
     activity.startActivityForResult(intent, REQUEST_IMAGE);
 }
 ```
-4) Receive result in your onActivityResult Method
+3) Receive result in your onActivityResult Method
 
 ``` java
 @Override
