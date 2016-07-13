@@ -7,10 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.text.TextUtils;
-import android.util.Log;
 
-import com.yongchun.library.R;
 import com.yongchun.library.model.LocalMedia;
 import com.yongchun.library.model.LocalMediaFolder;
 
@@ -50,7 +47,9 @@ public class LocalMediaLoader {
         this.activity = activity;
         this.type = type;
     }
+
     HashSet<String> mDirPaths = new HashSet<String>();
+
     public void loadAllImage(final LocalMediaLoadListener imageLoadListener) {
         activity.getSupportLoaderManager().initLoader(type, null, new LoaderManager.LoaderCallbacks<Cursor>() {
             @Override
@@ -76,7 +75,7 @@ public class LocalMediaLoader {
                 LocalMediaFolder allImageFolder = new LocalMediaFolder();
                 List<LocalMedia> allImages = new ArrayList<LocalMedia>();
 
-                while(data != null && data.moveToNext()){
+                while (data != null && data.moveToNext()) {
                     // 获取图片的路径
                     String path = data.getString(data
                             .getColumnIndex(MediaStore.Images.Media.DATA));
@@ -90,17 +89,15 @@ public class LocalMediaLoader {
 
                     String dirPath = parentFile.getAbsolutePath();
                     // 利用一个HashSet防止多次扫描同一个文件夹
-                    if (mDirPaths.contains(dirPath))
-                    {
+                    if (mDirPaths.contains(dirPath)) {
                         continue;
-                    } else
-                    {
+                    } else {
                         mDirPaths.add(dirPath);
                     }
 
                     if (parentFile.list() == null)
                         continue;
-                    LocalMediaFolder localMediaFolder = getImageFolder(path,imageFolders);
+                    LocalMediaFolder localMediaFolder = getImageFolder(path, imageFolders);
 
                     File[] files = parentFile.listFiles(new FilenameFilter() {
                         @Override
@@ -113,13 +110,13 @@ public class LocalMediaLoader {
                         }
                     });
                     ArrayList<LocalMedia> images = new ArrayList<>();
-                    for (int i = 0 ; i < files.length ; i++){
+                    for (int i = 0; i < files.length; i++) {
                         File f = files[i];
                         LocalMedia localMedia = new LocalMedia(f.getAbsolutePath());
                         allImages.add(localMedia);
                         images.add(localMedia);
                     }
-                    if(images.size()>0){
+                    if (images.size() > 0) {
                         localMediaFolder.setImages(images);
                         localMediaFolder.setImageNum(localMediaFolder.getImages().size());
                         imageFolders.add(localMediaFolder);
@@ -133,7 +130,7 @@ public class LocalMediaLoader {
                 imageFolders.add(allImageFolder);
                 sortFolder(imageFolders);
                 imageLoadListener.loadComplete(imageFolders);
-                if(data!=null) data.close();
+                if (data != null) data.close();
             }
 
             @Override
@@ -157,7 +154,7 @@ public class LocalMediaLoader {
         });
     }
 
-    private LocalMediaFolder getImageFolder(String path,List<LocalMediaFolder> imageFolders) {
+    private LocalMediaFolder getImageFolder(String path, List<LocalMediaFolder> imageFolders) {
         File imageFile = new File(path);
         File folderFile = imageFile.getParentFile();
 
