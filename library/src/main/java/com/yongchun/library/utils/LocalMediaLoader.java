@@ -97,7 +97,7 @@ public class LocalMediaLoader {
 
                     if (parentFile.list() == null)
                         continue;
-                    LocalMediaFolder localMediaFolder = getImageFolder(path, imageFolders);
+                    LocalMediaFolder localMediaFolder = getImageFolder(file, imageFolders);
 
                     File[] files = parentFile.listFiles(new FilenameFilter() {
                         @Override
@@ -153,20 +153,22 @@ public class LocalMediaLoader {
             }
         });
     }
-
-    private LocalMediaFolder getImageFolder(String path, List<LocalMediaFolder> imageFolders) {
-        File imageFile = new File(path);
+    /**
+     * 如果图片所属文件夹已经创建在list中查找返回,否则new一个新的
+     * 
+     * update by kelefun 2017/05/10 -- fix bug 重名的两个不同文件夹
+     */
+    private LocalMediaFolder getImageFolder(File imageFile, List<LocalMediaFolder> imageFolders) {
         File folderFile = imageFile.getParentFile();
-
         for (LocalMediaFolder folder : imageFolders) {
-            if (folder.getName().equals(folderFile.getName())) {
+            if (folder.getPath().equals(folderFile.getAbsolutePath())) {
                 return folder;
             }
         }
         LocalMediaFolder newFolder = new LocalMediaFolder();
         newFolder.setName(folderFile.getName());
         newFolder.setPath(folderFile.getAbsolutePath());
-        newFolder.setFirstImagePath(path);
+        newFolder.setFirstImagePath(imageFile.getPath());
         return newFolder;
     }
 
