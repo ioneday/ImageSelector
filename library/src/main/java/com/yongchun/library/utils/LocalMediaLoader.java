@@ -107,6 +107,7 @@ public class LocalMediaLoader {
                                     || filename.endsWith(".jpeg");
                         }
                     });
+
                     ArrayList<LocalMedia> images = new ArrayList<>();
                     for (File f : files) {
                         LocalMedia localMedia = new LocalMedia(f.getAbsolutePath());

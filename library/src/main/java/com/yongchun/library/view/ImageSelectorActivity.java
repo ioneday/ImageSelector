@@ -158,8 +158,8 @@ public class ImageSelectorActivity extends AppCompatActivity {
             @Override
             public void onChange(List<LocalMedia> selectImages) {
                 boolean enable = selectImages.size() != 0;
-                doneText.setEnabled(enable ? true : false);
-                previewText.setEnabled(enable ? true : false);
+                doneText.setEnabled(enable);
+                previewText.setEnabled(enable);
                 if (enable) {
                     doneText.setText(getString(R.string.done_num, selectImages.size(), maxSelectNum));
                     previewText.setText(getString(R.string.preview_num, selectImages.size()));
