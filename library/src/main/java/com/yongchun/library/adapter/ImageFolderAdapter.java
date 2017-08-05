@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.yongchun.library.R;
 import com.yongchun.library.model.LocalMedia;
 import com.yongchun.library.model.LocalMediaFolder;
@@ -44,12 +45,18 @@ public class ImageFolderAdapter extends RecyclerView.Adapter<ImageFolderAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final LocalMediaFolder folder = folders.get(position);
+
+        RequestOptions options = new RequestOptions();
+        options.skipMemoryCache(true)
+                .centerCrop()
+                .error(R.drawable.image_placeholder)
+                .placeholder(R.drawable.image_placeholder);
+
         Glide.with(context)
                 .load(new File(folder.getFirstImagePath()))
-                .placeholder(R.mipmap.ic_placeholder)
-                .error(R.mipmap.ic_placeholder)
-                .centerCrop()
+                .apply(options)
                 .into(holder.firstImage);
+
         holder.folderName.setText(folder.getName());
         holder.imageNum.setText(context.getString(R.string.num_postfix,folder.getImageNum()));
 

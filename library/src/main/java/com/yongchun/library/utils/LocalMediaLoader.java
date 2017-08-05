@@ -48,7 +48,7 @@ public class LocalMediaLoader {
         this.type = type;
     }
 
-    HashSet<String> mDirPaths = new HashSet<String>();
+    HashSet<String> mDirPaths = new HashSet<>();
 
     public void loadAllImage(final LocalMediaLoadListener imageLoadListener) {
         activity.getSupportLoaderManager().initLoader(type, null, new LoaderManager.LoaderCallbacks<Cursor>() {
@@ -71,9 +71,9 @@ public class LocalMediaLoader {
 
             @Override
             public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-                ArrayList<LocalMediaFolder> imageFolders = new ArrayList<LocalMediaFolder>();
+                ArrayList<LocalMediaFolder> imageFolders = new ArrayList<>();
                 LocalMediaFolder allImageFolder = new LocalMediaFolder();
-                List<LocalMedia> allImages = new ArrayList<LocalMedia>();
+                List<LocalMedia> allImages = new ArrayList<>();
 
                 while (data != null && data.moveToNext()) {
                     // 获取图片的路径
@@ -102,16 +102,14 @@ public class LocalMediaLoader {
                     File[] files = parentFile.listFiles(new FilenameFilter() {
                         @Override
                         public boolean accept(File dir, String filename) {
-                            if (filename.endsWith(".jpg")
+                            return filename.endsWith(".jpg")
                                     || filename.endsWith(".png")
-                                    || filename.endsWith(".jpeg"))
-                                return true;
-                            return false;
+                                    || filename.endsWith(".jpeg");
                         }
                     });
+
                     ArrayList<LocalMedia> images = new ArrayList<>();
-                    for (int i = 0; i < files.length; i++) {
-                        File f = files[i];
+                    for (File f : files) {
                         LocalMedia localMedia = new LocalMedia(f.getAbsolutePath());
                         allImages.add(localMedia);
                         images.add(localMedia);

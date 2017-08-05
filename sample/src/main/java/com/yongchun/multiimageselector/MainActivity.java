@@ -84,9 +84,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int mode = selectMode.getCheckedRadioButtonId()==R.id.mode_multiple?ImageSelectorActivity.MODE_MULTIPLE:ImageSelectorActivity.MODE_SINGLE;
-                boolean isShow = showCamera.getCheckedRadioButtonId()==R.id.camera_yes?true:false;
-                boolean isPreview = enablePreview.getCheckedRadioButtonId()==R.id.preview_enable?true:false;
-                boolean isCrop = enableCrop.getCheckedRadioButtonId()==R.id.crop_enable?true:false;
+                boolean isShow = showCamera.getCheckedRadioButtonId() == R.id.camera_yes;
+                boolean isPreview = enablePreview.getCheckedRadioButtonId() == R.id.preview_enable;
+                boolean isCrop = enableCrop.getCheckedRadioButtonId() == R.id.crop_enable;
 
                 ImageSelectorActivity.start(MainActivity.this, maxSelectNum, mode, isShow,isPreview,isCrop);
             }

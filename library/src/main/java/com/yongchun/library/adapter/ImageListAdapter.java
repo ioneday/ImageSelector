@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.yongchun.library.R;
 import com.yongchun.library.model.LocalMedia;
 import com.yongchun.library.view.ImageSelectorActivity;
@@ -92,14 +93,17 @@ public class ImageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         } else {
             final ViewHolder contentHolder = (ViewHolder) holder;
             final LocalMedia image = images.get(showCamera ? position - 1 : position);
+            RequestOptions options = new RequestOptions();
+            options.skipMemoryCache(true)
+                    .dontAnimate()
+                    .centerCrop()
+                    .error(R.drawable.image_placeholder)
+                    .placeholder(R.drawable.image_placeholder);
 
             Glide.with(context)
                     .load(new File(image.getPath()))
-                    .centerCrop()
                     .thumbnail(0.5f)
-                    .placeholder(R.drawable.image_placeholder)
-                    .error(R.drawable.image_placeholder)
-                    .dontAnimate()
+                    .apply(options)
                     .into(contentHolder.picture);
 
             if (selectMode == ImageSelectorActivity.MODE_SINGLE) {
