@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -61,9 +62,17 @@ public class SelectResultActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(GridAdapter.ViewHolder holder, int position) {
+            RequestOptions options = new RequestOptions();
+            options.skipMemoryCache(true)
+                    .dontAnimate()
+                    .centerCrop()
+                    .error(com.yongchun.library.R.drawable.image_placeholder)
+                    .placeholder(com.yongchun.library.R.drawable.image_placeholder);
+
+
             Glide.with(SelectResultActivity.this)
                     .load(new File(images.get(position)))
-                    .centerCrop()
+                    .apply(options)
                     .into(holder.imageView);
         }
 
